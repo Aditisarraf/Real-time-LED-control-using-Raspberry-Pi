@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GPIO Control</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 25px;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: white;
+    }
+    .btn-on {
+      background-color: green;
+    }
+    .btn-off {
+      background-color: red;
+    }
+    /* Hover effects for buttons */
+    .btn-on:hover {
+      background-color: #45a049; /* Darker green */
+      transform: scale(1.05); /* Slightly larger */
+    }
+    .btn-off:hover {
+      background-color: #e53935; /* Darker red */
+      transform: scale(1.05); /* Slightly larger */
+    }
+    button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>LED Controller</h2>
+    <button class="btn-on" type="button" onclick="LEDOn()">Switch ON</button>
+    <button class="btn-off" type="button" onclick="LEDOff()">Switch OFF</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+  <script>
+    var socket = io(); // Load socket.io-client and connect to the host
+
+    function LEDOn() {
+      socket.emit('state', 1); // Send button state to server
+    }
+
+    function LEDOff() {
+      socket.emit('state', 0); // Send button state to server
+    }
+  </script>
+</body>
+</html>
